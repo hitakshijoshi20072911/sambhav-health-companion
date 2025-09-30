@@ -1,647 +1,612 @@
-import { Users, Shield, Stethoscope, Pill, BarChart3, AlertTriangle, Database, Activity } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import DeviceMockup from "@/components/DeviceMockup";
 import SyncIndicator from "@/components/SyncIndicator";
+import { 
+  Users, Activity, Calendar, Shield, Phone, AlertTriangle, 
+  CheckCircle, Clock, MapPin, Camera, Mic, FileText,
+  Pill, Package, TrendingUp, Bell
+} from "lucide-react";
 
 const Dashboards = () => {
   return (
     <div className="w-full py-16">
       <div className="container">
-        {/* Header */}
-        <div className="text-center mb-16 max-w-3xl mx-auto fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Role-Based Dashboards</h1>
-          <p className="text-xl text-muted-foreground">
-            Every user sees exactly what they need — purpose-built interfaces for field, clinic, and admin
-          </p>
-        </div>
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="text-center space-y-4 fade-in-up">
+            <h1 className="text-4xl md:text-5xl font-bold">Role Dashboards</h1>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Explore the purpose-built interfaces for each role in the SAMBHAV ecosystem
+            </p>
+          </div>
 
-        {/* Tabs for Each Role */}
-        <Tabs defaultValue="asha" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 mb-12">
-            <TabsTrigger value="asha" className="touch-target">
-              <Users className="h-4 w-4 mr-2" />
-              ASHA
-            </TabsTrigger>
-            <TabsTrigger value="anm" className="touch-target">
-              <Stethoscope className="h-4 w-4 mr-2" />
-              ANM
-            </TabsTrigger>
-            <TabsTrigger value="doctor" className="touch-target">
-              <Stethoscope className="h-4 w-4 mr-2" />
-              Doctor
-            </TabsTrigger>
-            <TabsTrigger value="pharmacist" className="touch-target">
-              <Pill className="h-4 w-4 mr-2" />
-              Pharmacist
-            </TabsTrigger>
-            <TabsTrigger value="supervisor" className="touch-target">
-              <BarChart3 className="h-4 w-4 mr-2" />
-              Supervisor
-            </TabsTrigger>
-            <TabsTrigger value="safety" className="touch-target">
-              <Shield className="h-4 w-4 mr-2" />
-              Safety
-            </TabsTrigger>
-          </TabsList>
+          <Tabs defaultValue="asha" className="w-full">
+            <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 h-auto">
+              <TabsTrigger value="asha" className="text-sm py-3">
+                <span className="text-2xl mr-2">👩‍⚕️</span> ASHA
+              </TabsTrigger>
+              <TabsTrigger value="anm" className="text-sm py-3">
+                <span className="text-2xl mr-2">👨‍⚕️</span> ANM
+              </TabsTrigger>
+              <TabsTrigger value="doctor" className="text-sm py-3">
+                <span className="text-2xl mr-2">🩺</span> Doctor
+              </TabsTrigger>
+              <TabsTrigger value="pharmacist" className="text-sm py-3">
+                <span className="text-2xl mr-2">💊</span> Pharmacist
+              </TabsTrigger>
+              <TabsTrigger value="supervisor" className="text-sm py-3">
+                <span className="text-2xl mr-2">📊</span> Supervisor
+              </TabsTrigger>
+              <TabsTrigger value="safety" className="text-sm py-3">
+                <span className="text-2xl mr-2">🚨</span> Safety
+              </TabsTrigger>
+            </TabsList>
 
-          {/* ASHA Dashboard */}
-          <TabsContent value="asha" id="asha" className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8 mb-8">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-3xl font-bold">ASHA Worker Dashboard</h2>
-                <SyncIndicator status="synced" />
-              </div>
-              <p className="text-lg text-muted-foreground mb-6">
-                Voice-first, offline-capable, touch-friendly interface for primary field workers
-              </p>
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">Voice Input</span>
-                <span className="px-3 py-1 bg-success/10 text-success text-sm rounded-full">Offline-First</span>
-                <span className="px-3 py-1 bg-warning/10 text-warning text-sm rounded-full">Low-Literacy</span>
-                <span className="px-3 py-1 bg-safety/10 text-safety text-sm rounded-full">Safety Button</span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Home / Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded">
-                    <span>Patients Visited Today</span>
-                    <span className="font-bold text-primary">12</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded">
-                    <span>Pending Syncs</span>
-                    <span className="font-bold text-warning">3</span>
-                  </div>
-                  <div className="flex items-center justify-between p-3 bg-muted/50 rounded">
-                    <span>Upcoming Visits</span>
-                    <span className="font-bold text-primary">8</span>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-2">
-                    • Large tiles with icons<br />
-                    • Voice prompt: "Tell me my schedule"<br />
-                    • Quick access to new visit button
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Patients</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="p-3 bg-muted/50 rounded">
-                    <div className="flex items-center space-x-3 mb-2">
-                      <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-xs font-bold">RM</div>
+            {/* ASHA Dashboard */}
+            <TabsContent value="asha" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-primary text-white hover-zoom">
+                    <div className="flex items-center justify-between mb-4">
                       <div>
-                        <div className="font-bold">Rashmi Devi</div>
-                        <div className="text-xs text-muted-foreground">32 yrs • ANC Visit</div>
+                        <h3 className="text-2xl font-bold">ASHA Worker</h3>
+                        <p className="text-white/80">Primary Field Worker Dashboard</p>
+                      </div>
+                      <SyncIndicator status="online" />
+                    </div>
+                  </Card>
+
+                  {/* Interactive Stats Cards */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <Card className="p-4 hover-zoom cursor-pointer">
+                      <div className="flex items-center space-x-3">
+                        <Users className="h-8 w-8 text-primary" />
+                        <div>
+                          <div className="text-2xl font-bold">24</div>
+                          <div className="text-sm text-muted-foreground">Visits Today</div>
+                        </div>
+                      </div>
+                    </Card>
+                    <Card className="p-4 hover-zoom cursor-pointer">
+                      <div className="flex items-center space-x-3">
+                        <Activity className="h-8 w-8 text-warning" />
+                        <div>
+                          <div className="text-2xl font-bold">3</div>
+                          <div className="text-sm text-muted-foreground">Pending Syncs</div>
+                        </div>
+                      </div>
+                    </Card>
+                  </div>
+
+                  {/* Patient List with Interactive Elements */}
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <Users className="h-5 w-5 mr-2 text-primary" />
+                      Today's Patients
+                    </h4>
+                    <div className="space-y-3">
+                      {[
+                        { name: "Priya Sharma", age: 28, status: "ANC Visit", priority: "high" },
+                        { name: "Meena Devi", age: 45, status: "NCD Checkup", priority: "medium" },
+                        { name: "Rajesh Kumar", age: 3, status: "Immunization", priority: "high" },
+                      ].map((patient, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-muted rounded-lg hover:bg-accent transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                              <Users className="h-5 w-5 text-primary" />
+                            </div>
+                            <div>
+                              <div className="font-medium">{patient.name}, {patient.age}y</div>
+                              <div className="text-sm text-muted-foreground">{patient.status}</div>
+                            </div>
+                          </div>
+                          <Badge variant={patient.priority === "high" ? "destructive" : "secondary"}>
+                            {patient.priority}
+                          </Badge>
+                        </div>
+                      ))}
+                    </div>
+                    <Button className="w-full mt-4 bg-primary">
+                      <Users className="mr-2 h-4 w-4" />
+                      Add New Visit
+                    </Button>
+                  </Card>
+
+                  {/* Quick Actions */}
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Quick Actions</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button variant="outline" className="flex items-center justify-center hover-zoom">
+                        <Mic className="mr-2 h-4 w-4" />
+                        Voice Input
+                      </Button>
+                      <Button variant="outline" className="flex items-center justify-center hover-zoom">
+                        <Camera className="mr-2 h-4 w-4" />
+                        Capture Photo
+                      </Button>
+                      <Button variant="outline" className="flex items-center justify-center hover-zoom">
+                        <Calendar className="mr-2 h-4 w-4" />
+                        Reminders
+                      </Button>
+                      <Button variant="outline" className="flex items-center justify-center hover-zoom">
+                        <MapPin className="mr-2 h-4 w-4" />
+                        Check-in
+                      </Button>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="online" imageSrc="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="ASHA Dashboard" />
+                  
+                  {/* Safety Button - Always Visible */}
+                  <Card className="p-6 border-2 border-safety bg-safety/5">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-3">
+                        <Shield className="h-6 w-6 text-safety" />
+                        <div>
+                          <h4 className="font-bold">Safety Module</h4>
+                          <p className="text-sm text-muted-foreground">Persistent panic button</p>
+                        </div>
+                      </div>
+                      <Switch defaultChecked />
+                    </div>
+                    <Button variant="destructive" className="w-full" size="lg">
+                      <AlertTriangle className="mr-2 h-5 w-5" />
+                      Emergency Alert
+                    </Button>
+                    <p className="text-xs text-muted-foreground mt-2 text-center">
+                      Long press for silent panic • Short tap for menu
+                    </p>
+                  </Card>
+
+                  {/* Offline Features */}
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <Activity className="h-5 w-5 mr-2 text-primary" />
+                      Offline Capabilities
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between p-3 bg-muted rounded">
+                        <span className="text-sm">Visit Recording</span>
+                        <CheckCircle className="h-5 w-5 text-success" />
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-muted rounded">
+                        <span className="text-sm">Photo Attachment</span>
+                        <CheckCircle className="h-5 w-5 text-success" />
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-muted rounded">
+                        <span className="text-sm">Voice Notes</span>
+                        <CheckCircle className="h-5 w-5 text-success" />
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-muted rounded">
+                        <span className="text-sm">SMS Fallback</span>
+                        <Clock className="h-5 w-5 text-warning" />
                       </div>
                     </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    • Voice/text search<br />
-                    • Patient cards: photo, age, badges (ANC, NCD)<br />
-                    • Tap to view visit history, reminders, safety notes<br />
-                    • Color-coded urgency (red = overdue)
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>New Visit</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="space-y-2">
-                    <div className="p-2 bg-success/10 border border-success/30 rounded text-success text-xs">
-                      ✓ Patient selected: Rashmi Devi
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded text-xs">
-                      Checklist: ANC, Immunization, Fever, NCD
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded text-xs">
-                      Voice input: "Patient complains fever 2 days"
-                    </div>
-                    <div className="p-2 bg-muted/50 rounded text-xs">
-                      📷 Photo attachment ready
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-2">
-                    • Structured checklists<br />
-                    • Voice-to-text notes<br />
-                    • Photo/audio attach<br />
-                    • Save locally, queue for sync
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-safety/50">
-                <CardHeader>
-                  <CardTitle className="text-safety flex items-center">
-                    <Shield className="mr-2 h-5 w-5" />
-                    Safety / Panic
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="p-4 bg-safety/10 rounded-lg text-center">
-                    <div className="w-16 h-16 bg-safety rounded-full mx-auto mb-3 flex items-center justify-center text-white font-bold">
-                      SOS
-                    </div>
-                    <p className="text-xs font-medium">Persistent bottom-right button</p>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    • <strong>Short tap:</strong> Safety menu (quick-call police, NGO, family)<br />
-                    • <strong>Long press:</strong> Silent panic (haptic only)<br />
-                    • Sends location, photo/audio to trusted contacts<br />
-                    • Encrypted, anonymous reporting option<br />
-                    • SMS fallback if offline
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Reminders / Calendar</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="space-y-2">
-                    <div className="p-2 bg-warning/10 border-l-4 border-warning rounded text-xs">
-                      Today: Rashmi Devi ANC checkup
-                    </div>
-                    <div className="p-2 bg-primary/10 border-l-4 border-primary rounded text-xs">
-                      Tomorrow: Vaccine camp @ Village Center
-                    </div>
-                  </div>
-                  <p className="text-xs text-muted-foreground pt-2">
-                    • Color-coded urgency<br />
-                    • Push notifications when online<br />
-                    • Quick "Mark done" button<br />
-                    • Sync with supervisor calendar
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Help / AI Assistant</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="p-3 bg-primary/5 rounded border">
-                    <p className="text-xs mb-2 text-muted-foreground">Ask me anything...</p>
-                    <p className="text-xs">"How to handle high fever in infant?"</p>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    • Step-by-step guidance<br />
-                    • Translation (Hindi, Punjabi)<br />
-                    • Incident summary for reporting<br />
-                    • Offline Q&A cache
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* ANM Dashboard */}
-          <TabsContent value="anm" id="anm" className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8 mb-8">
-              <h2 className="text-3xl font-bold mb-2">ANM Dashboard</h2>
-              <p className="text-lg text-muted-foreground">
-                Supervise ASHA work, validate field data, manage incidents and vaccination schedules
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Home Stats</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3 text-sm">
-                  <div className="space-y-2">
-                    <div className="flex justify-between p-2 bg-muted/50 rounded">
-                      <span>ASHAs in Area</span>
-                      <span className="font-bold">8</span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-muted/50 rounded">
-                      <span>Visits Today</span>
-                      <span className="font-bold">47</span>
-                    </div>
-                    <div className="flex justify-between p-2 bg-muted/50 rounded">
-                      <span>Pending Approvals</span>
-                      <span className="font-bold text-warning">5</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Patient Review</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Validate visit details & vitals<br />
-                  • Add comments or corrections<br />
-                  • Approve or flag for re-visit<br />
-                  • View ASHA notes & photos
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Incident Management</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Incident queue with priority<br />
-                  • Approve escalations<br />
-                  • AI-generated summaries<br />
-                  • MLC-ready report export
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Vaccination / ANC</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Calendar view of schedules<br />
-                  • Flag missed appointments<br />
-                  • Send reminders to ASHAs<br />
-                  • Coverage reports
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Medicines / Stock</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Dispensed vs remaining stock<br />
-                  • Flag shortages<br />
-                  • SMS to PHC pharmacist<br />
-                  • Expiry alerts
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* PHC Doctor Dashboard */}
-          <TabsContent value="doctor" id="doctor" className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8 mb-8">
-              <h2 className="text-3xl font-bold mb-2">PHC Doctor Dashboard</h2>
-              <p className="text-lg text-muted-foreground">
-                Patient queue, teleconsults, referrals, and incident oversight
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Patient Queue</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Synced patient list from ASHAs<br />
-                  • Visit summaries & vitals<br />
-                  • Priority triage (urgent first)<br />
-                  • Click to view full EHR
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Teleconsult</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Scheduled calls with ASHA/ANM<br />
-                  • Video/audio with patient<br />
-                  • Screen share patient records<br />
-                  • Record call for MLC
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Referrals & Follow-up</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Accept referrals from ANM<br />
-                  • Refer to district hospital<br />
-                  • Schedule follow-up with ASHA<br />
-                  • Track referral outcomes
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Incident Overview</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • High-severity incidents only<br />
-                  • AI-generated medical summaries<br />
-                  • Review evidence (photos/audio)<br />
-                  • Coordinate with authorities
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Analytics</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Daily patient stats<br />
-                  • Missed visits & coverage gaps<br />
-                  • Vaccination progress<br />
-                  • Stock consumption trends
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Pharmacist Dashboard */}
-          <TabsContent value="pharmacist" id="pharmacist" className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8 mb-8">
-              <h2 className="text-3xl font-bold mb-2">Pharmacist Dashboard</h2>
-              <p className="text-lg text-muted-foreground">
-                Inventory management, dispensation tracking, and expiry alerts
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Medicine Inventory</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Real-time stock levels<br />
-                  • Filter by category (tablets, syrups, etc.)<br />
-                  • Search by name or code<br />
-                  • Color-coded stock alerts
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Dispensed Today</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • List of medicines given<br />
-                  • ASHA dispensation logs<br />
-                  • Patient-wise breakdown<br />
-                  • Offline updates queued
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Expiry Alerts</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • 30/60/90 day warnings<br />
-                  • Highlight expired items (red)<br />
-                  • Generate disposal reports<br />
-                  • Notify ANM for removal
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Low Stock Alerts</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Auto-notify ANM & PHC doctor<br />
-                  • SMS fallback when offline<br />
-                  • Reorder suggestions<br />
-                  • Track pending orders
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Supervisor / Admin Dashboard */}
-          <TabsContent value="supervisor" id="supervisor" className="space-y-8">
-            <div className="bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8 mb-8">
-              <h2 className="text-3xl font-bold mb-2">Supervisor / Admin Dashboard</h2>
-              <p className="text-lg text-muted-foreground">
-                Device health, incident management, KPIs, and system administration
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Device Health</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Map view of ASHA devices<br />
-                  • Last sync timestamp per device<br />
-                  • Pending items count<br />
-                  • Offline usage stats<br />
-                  • Battery & storage alerts
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Incident Queue</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Pending / Acknowledged / Resolved<br />
-                  • Priority triage (high/med/low)<br />
-                  • Assign caseworkers<br />
-                  • Request additional evidence<br />
-                  • Generate MLC reports
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>KPIs / Metrics</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Daily active ASHAs<br />
-                  • Sync success rate (%)<br />
-                  • Avg incident response time<br />
-                  • Vaccination coverage<br />
-                  • Exportable reports (CSV/PDF)
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>User Management</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Bulk device registration<br />
-                  • Role assignment (ASHA/ANM/etc.)<br />
-                  • Push config updates<br />
-                  • Deactivate/reactivate users
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          {/* Safety Module Dashboard */}
-          <TabsContent value="safety" id="safety" className="space-y-8">
-            <div className="bg-gradient-to-br from-safety/10 to-warning/10 rounded-2xl p-8 mb-8 border-2 border-safety/30">
-              <div className="flex items-center mb-4">
-                <AlertTriangle className="h-8 w-8 text-safety mr-3" />
-                <h2 className="text-3xl font-bold text-safety">Emergency / Safety Module</h2>
-              </div>
-              <p className="text-lg text-muted-foreground">
-                Persistent panic button, encrypted alerts, anonymous reporting, and MLC-ready documentation
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-6">
-              <Card className="border-2 border-safety/50">
-                <CardHeader>
-                  <CardTitle className="text-safety">Panic Button Behavior</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4 text-sm">
-                  <div className="bg-safety/10 p-4 rounded-lg">
-                    <p className="font-bold mb-2">Short Tap:</p>
-                    <p className="text-muted-foreground">Opens Safety Menu with quick-call buttons (police, NGO, family, supervisor)</p>
-                  </div>
-                  <div className="bg-safety/10 p-4 rounded-lg">
-                    <p className="font-bold mb-2">Long Press (3 sec):</p>
-                    <p className="text-muted-foreground">Silent panic mode — haptic feedback only, no UI. Sends encrypted location & evidence to trusted contacts.</p>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="border-2 border-warning/50">
-                <CardHeader>
-                  <CardTitle className="text-warning">Automated Alert Flow</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground space-y-2">
-                  • Encrypted alert to trusted contacts<br />
-                  • Notification to supervisor dashboard<br />
-                  • Alert to district authorities<br />
-                  • Police station within radius notified<br />
-                  • SMS fallback if no data connectivity
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Location Sharing</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • GPS coordinates captured<br />
-                  • Nearby landmarks identified<br />
-                  • Timestamp logged<br />
-                  • Live location shared with trusted contacts<br />
-                  • Location history for audit
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Discreet Evidence</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Photo/audio captured (if safe)<br />
-                  • Uploaded to encrypted vault<br />
-                  • Only accessible by authorized personnel<br />
-                  • Evidence chain of custody maintained<br />
-                  • Auto-deleted after legal proceedings
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Anonymous Reporting</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • Option to report anonymously<br />
-                  • Identity masked from reports<br />
-                  • Supervisor sees incident, not identity<br />
-                  • Haptic-only confirmation<br />
-                  • Legal protection for whistleblowers
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Incident Dashboard</CardTitle>
-                </CardHeader>
-                <CardContent className="text-sm text-muted-foreground">
-                  • States: Pending → Acknowledged → Investigating → Resolved<br />
-                  • AI-generated incident summary<br />
-                  • Evidence review (photos/audio/location)<br />
-                  • Caseworker assignment<br />
-                  • Export MLC-ready PDF
-                </CardContent>
-              </Card>
-            </div>
-
-            <div className="bg-primary/5 rounded-xl p-6 border-2 border-primary/30">
-              <h3 className="text-xl font-bold mb-4 flex items-center">
-                <Shield className="mr-2 text-primary" />
-                MLC-Ready Report Generation
-              </h3>
-              <div className="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                  <p className="font-bold mb-2">Report Contents:</p>
-                  <ul className="space-y-1 text-muted-foreground">
-                    <li>• Timestamp & location (GPS)</li>
-                    <li>• Incident type & severity</li>
-                    <li>• Evidence attachments (encrypted)</li>
-                    <li>• Witness statements (if any)</li>
-                    <li>• Medical examination notes</li>
-                    <li>• Chain of custody log</li>
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-bold mb-2">Legal Compliance:</p>
-                  <ul className="space-y-1 text-muted-foreground">
-                    <li>• Complies with IPC sections</li>
-                    <li>• Formatted per MLC guidelines</li>
-                    <li>• Digital signature support</li>
-                    <li>• Tamper-proof PDF export</li>
-                    <li>• Court-admissible evidence</li>
-                  </ul>
+                  </Card>
                 </div>
               </div>
-            </div>
-          </TabsContent>
-        </Tabs>
 
-        {/* Global Dashboard Principles */}
-        <div className="mt-16 bg-gradient-to-br from-primary/5 to-accent/10 rounded-2xl p-8">
-          <h2 className="text-2xl font-bold mb-6 text-center">Universal Dashboard Principles</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-success/10 rounded-full mx-auto mb-3 flex items-center justify-center">
-                <Database className="h-6 w-6 text-success" />
+              {/* Feature List */}
+              <Card className="p-6">
+                <h4 className="font-bold mb-4">Key Features</h4>
+                <ul className="grid md:grid-cols-2 gap-3">
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">Voice-enabled visit tracking with local language support</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">Offline-first patient management with queue sync</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">Persistent safety button with silent panic mode</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">Photo/audio evidence capture and encrypted storage</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">Large touch targets and low-literacy friendly UI</span>
+                  </li>
+                  <li className="flex items-start space-x-2">
+                    <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                    <span className="text-sm">AI assistant for step-by-step guidance</span>
+                  </li>
+                </ul>
+              </Card>
+            </TabsContent>
+
+            {/* ANM Dashboard */}
+            <TabsContent value="anm" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-primary text-white hover-zoom">
+                    <h3 className="text-2xl font-bold mb-2">ANM Dashboard</h3>
+                    <p className="text-white/80">Field Data Validation & Incident Management</p>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Pending Approvals</h4>
+                    <div className="space-y-3">
+                      {[1, 2, 3].map((i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-muted rounded hover:bg-accent transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-3">
+                            <FileText className="h-5 w-5 text-primary" />
+                            <div>
+                              <div className="font-medium">ASHA Visit Report #{i}</div>
+                              <div className="text-sm text-muted-foreground">2 hours ago</div>
+                            </div>
+                          </div>
+                          <Button size="sm" className="bg-primary hover-zoom">Review</Button>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Vaccination Schedule</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm font-medium">Upcoming: 12 children</span>
+                        <Badge>This Week</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-warning/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm font-medium">Missed: 3 children</span>
+                        <Badge variant="destructive">Overdue</Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="syncing" imageSrc="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="ANM Dashboard" />
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Key Features</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Validate field data and vitals from ASHAs</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Manage incident queue and escalations</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Monitor ANC schedules and vaccination coverage</span>
+                      </li>
+                    </ul>
+                  </Card>
+                </div>
               </div>
-              <h3 className="font-bold mb-2">Offline-First</h3>
-              <p className="text-sm text-muted-foreground">All actions work offline, queue for sync</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full mx-auto mb-3 flex items-center justify-center">
-                <Shield className="h-6 w-6 text-primary" />
+            </TabsContent>
+
+            {/* PHC Doctor Dashboard */}
+            <TabsContent value="doctor" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-primary text-white hover-zoom">
+                    <h3 className="text-2xl font-bold mb-2">PHC Doctor</h3>
+                    <p className="text-white/80">Patient Queue & Teleconsult Management</p>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Patient Queue</h4>
+                    <div className="space-y-3">
+                      {[1, 2, 3, 4].map((i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-muted rounded hover:bg-accent transition-colors cursor-pointer">
+                          <div className="flex items-center space-x-3">
+                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center font-bold text-primary">
+                              {i}
+                            </div>
+                            <div>
+                              <div className="font-medium">Patient #{i}</div>
+                              <div className="text-sm text-muted-foreground">Waiting</div>
+                            </div>
+                          </div>
+                          <Button size="sm" className="bg-primary hover-zoom">Call Next</Button>
+                        </div>
+                      ))}
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Teleconsult Requests</h4>
+                    <div className="grid grid-cols-2 gap-3">
+                      <Button variant="outline" className="h-20 hover-zoom">
+                        <div className="text-center">
+                          <Phone className="h-6 w-6 mx-auto mb-1" />
+                          <div className="text-xs">Active: 2</div>
+                        </div>
+                      </Button>
+                      <Button variant="outline" className="h-20 hover-zoom">
+                        <div className="text-center">
+                          <Clock className="h-6 w-6 mx-auto mb-1" />
+                          <div className="text-xs">Pending: 5</div>
+                        </div>
+                      </Button>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="online" imageSrc="https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?auto=format&fit=crop&w=400&q=80" alt="Doctor Dashboard" />
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Key Features</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Manage patient queue with synced records</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Handle teleconsult requests from field</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Review high-severity incident summaries</span>
+                      </li>
+                    </ul>
+                  </Card>
+                </div>
               </div>
-              <h3 className="font-bold mb-2">Role-Based Access</h3>
-              <p className="text-sm text-muted-foreground">See only what's relevant to your role</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-warning/10 rounded-full mx-auto mb-3 flex items-center justify-center">
-                <Users className="h-6 w-6 text-warning" />
+            </TabsContent>
+
+            {/* Pharmacist Dashboard */}
+            <TabsContent value="pharmacist" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-primary text-white hover-zoom">
+                    <h3 className="text-2xl font-bold mb-2">Pharmacist</h3>
+                    <p className="text-white/80">Inventory & Dispensation Management</p>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <Package className="h-5 w-5 mr-2 text-primary" />
+                      Medicine Inventory
+                    </h4>
+                    <div className="space-y-3">
+                      {[
+                        { name: "Paracetamol 500mg", stock: 500, alert: false },
+                        { name: "ORS Sachets", stock: 45, alert: true },
+                        { name: "Iron Tablets", stock: 200, alert: false },
+                      ].map((med, i) => (
+                        <div key={i} className="flex items-center justify-between p-3 bg-muted rounded cursor-pointer hover-zoom">
+                          <div className="flex items-center space-x-3">
+                            <Pill className="h-5 w-5 text-primary" />
+                            <div>
+                              <div className="font-medium">{med.name}</div>
+                              <div className="text-sm text-muted-foreground">Stock: {med.stock}</div>
+                            </div>
+                          </div>
+                          {med.alert && (
+                            <Badge variant="destructive">Low Stock</Badge>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <Button className="w-full mt-4 bg-primary hover-zoom">
+                      <Package className="mr-2 h-4 w-4" />
+                      Update Inventory
+                    </Button>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Today's Dispensation</h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-4 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-primary">24</div>
+                        <div className="text-sm text-muted-foreground">Items Dispensed</div>
+                      </div>
+                      <div className="text-center p-4 bg-warning/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-warning">3</div>
+                        <div className="text-sm text-muted-foreground">Pending Confirms</div>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="offline" imageSrc="https://images.unsplash.com/photo-1471864190281-a93a3070b6de?auto=format&fit=crop&w=400&q=80" alt="Pharmacist Dashboard" />
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Key Features</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Track medicine inventory with expiry alerts</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Confirm ASHA dispensations offline</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">SMS fallback for low stock notifications</span>
+                      </li>
+                    </ul>
+                  </Card>
+                </div>
               </div>
-              <h3 className="font-bold mb-2">Low-Literacy UX</h3>
-              <p className="text-sm text-muted-foreground">Icons, voice, minimal text</p>
-            </div>
-            <div className="text-center">
-              <div className="w-12 h-12 bg-safety/10 rounded-full mx-auto mb-3 flex items-center justify-center">
-                <Activity className="h-6 w-6 text-safety" />
+            </TabsContent>
+
+            {/* Supervisor Dashboard */}
+            <TabsContent value="supervisor" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-primary text-white hover-zoom">
+                    <h3 className="text-2xl font-bold mb-2">Supervisor</h3>
+                    <p className="text-white/80">Device Health & KPI Monitoring</p>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <TrendingUp className="h-5 w-5 mr-2 text-primary" />
+                      KPIs Overview
+                    </h4>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="text-center p-4 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-primary">42</div>
+                        <div className="text-sm text-muted-foreground">Active ASHAs</div>
+                      </div>
+                      <div className="text-center p-4 bg-success/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-success">98%</div>
+                        <div className="text-sm text-muted-foreground">Sync Success</div>
+                      </div>
+                      <div className="text-center p-4 bg-warning/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-warning">11m</div>
+                        <div className="text-sm text-muted-foreground">Avg Response</div>
+                      </div>
+                      <div className="text-center p-4 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <div className="text-3xl font-bold text-primary">156</div>
+                        <div className="text-sm text-muted-foreground">Visits Today</div>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <Bell className="h-5 w-5 mr-2 text-primary" />
+                      Device Health Alerts
+                    </h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-3 bg-warning/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">3 devices offline &gt;24h</span>
+                        <Button size="sm" variant="outline">Check</Button>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">5 pending syncs</span>
+                        <Button size="sm" variant="outline">Review</Button>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="online" imageSrc="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="Supervisor Dashboard" />
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Key Features</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Monitor device health and sync status</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Manage incident queue and assignments</span>
+                      </li>
+                      <li className="flex items-start space-x-2">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0 mt-0.5" />
+                        <span className="text-sm">Export KPI dashboards and MLC reports</span>
+                      </li>
+                    </ul>
+                  </Card>
+                </div>
               </div>
-              <h3 className="font-bold mb-2">Visual Feedback</h3>
-              <p className="text-sm text-muted-foreground">Sync status, urgency colors, haptics</p>
-            </div>
-          </div>
+            </TabsContent>
+
+            {/* Safety Module */}
+            <TabsContent value="safety" className="space-y-6 mt-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-6">
+                  <Card className="p-6 bg-safety text-white hover-zoom">
+                    <div className="flex items-center space-x-3 mb-2">
+                      <Shield className="h-8 w-8" />
+                      <h3 className="text-2xl font-bold">Emergency Safety</h3>
+                    </div>
+                    <p className="text-white/90">Women Safety & Incident Reporting Module</p>
+                  </Card>
+
+                  <Card className="p-6 border-2 border-safety">
+                    <h4 className="font-bold mb-4 flex items-center">
+                      <AlertTriangle className="h-5 w-5 mr-2 text-safety" />
+                      Panic Button Features
+                    </h4>
+                    <div className="space-y-3">
+                      <div className="flex items-center space-x-3 p-3 bg-muted rounded cursor-pointer hover-zoom">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
+                        <span className="text-sm">Silent panic with haptic-only feedback</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-muted rounded cursor-pointer hover-zoom">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
+                        <span className="text-sm">Automated location sharing</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-muted rounded cursor-pointer hover-zoom">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
+                        <span className="text-sm">Encrypted evidence capture (photo/audio)</span>
+                      </div>
+                      <div className="flex items-center space-x-3 p-3 bg-muted rounded cursor-pointer hover-zoom">
+                        <CheckCircle className="h-5 w-5 text-success flex-shrink-0" />
+                        <span className="text-sm">Anonymous reporting option</span>
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">Alert Recipients</h4>
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">Trusted Contacts</span>
+                        <Badge>Immediate</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">Supervisor</span>
+                        <Badge>Immediate</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">District Authorities</span>
+                        <Badge variant="secondary">Within 5km</Badge>
+                      </div>
+                      <div className="flex items-center justify-between p-3 bg-primary/10 rounded cursor-pointer hover-zoom">
+                        <span className="text-sm">Police</span>
+                        <Badge variant="secondary">Within 5km</Badge>
+                      </div>
+                    </div>
+                  </Card>
+                </div>
+
+                <div className="space-y-6">
+                  <DeviceMockup status="online" imageSrc="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=400&q=80" alt="Safety Module" />
+                  
+                  <Card className="p-6 bg-safety/5 border-2 border-safety">
+                    <h4 className="font-bold mb-4 text-safety">Emergency Actions</h4>
+                    <div className="space-y-3">
+                      <Button variant="destructive" className="w-full hover-zoom" size="lg">
+                        <Phone className="mr-2 h-5 w-5" />
+                        Quick Call Police
+                      </Button>
+                      <Button variant="outline" className="w-full hover-zoom" size="lg">
+                        <MapPin className="mr-2 h-5 w-5" />
+                        Share Live Location
+                      </Button>
+                      <Button variant="outline" className="w-full hover-zoom" size="lg">
+                        <Camera className="mr-2 h-5 w-5" />
+                        Capture Evidence
+                      </Button>
+                    </div>
+                  </Card>
+
+                  <Card className="p-6">
+                    <h4 className="font-bold mb-4">MLC Report Generation</h4>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Automatic generation of Medico-Legal Case reports with timestamp, location, and encrypted evidence
+                    </p>
+                    <Button className="w-full bg-primary hover-zoom">
+                      <FileText className="mr-2 h-4 w-4" />
+                      Generate MLC Report
+                    </Button>
+                  </Card>
+                </div>
+              </div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>

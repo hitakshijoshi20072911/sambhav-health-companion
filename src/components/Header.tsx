@@ -1,14 +1,25 @@
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { Menu, Mic, Languages } from "lucide-react";
 import { useState } from "react";
 import sambhavLogo from "@/assets/sambhav-logo.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { toast } from "sonner";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState("English");
+  const [isListening, setIsListening] = useState(false);
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
+
+  const languages = ["English", "Hindi", "Punjabi", "Bengali", "Tamil", "Telugu"];
 
   const navLinks = [
     { path: "/", label: "Home" },
@@ -17,6 +28,22 @@ const Header = () => {
     { path: "/dashboards", label: "Role Dashboards" },
     { path: "/contact", label: "Contact" },
   ];
+
+  const handleLanguageChange = (lang: string) => {
+    setCurrentLanguage(lang);
+    toast.success(`Language changed to ${lang}`);
+  };
+
+  const handleVoiceNavigation = () => {
+    setIsListening(true);
+    toast.info("Voice navigation activated. Say 'Home', 'Features', 'Dashboards', etc.");
+    
+    // Simulate voice recognition
+    setTimeout(() => {
+      setIsListening(false);
+      toast.success("Voice command processed");
+    }, 3000);
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -43,8 +70,36 @@ const Header = () => {
           ))}
         </nav>
 
-        {/* CTA Buttons */}
+        {/* Voice Nav + Language + CTA Buttons */}
         <div className="hidden md:flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="touch-target"
+            onClick={handleVoiceNavigation}
+          >
+            <Mic className={`h-5 w-5 ${isListening ? 'text-primary animate-pulse' : ''}`} />
+          </Button>
+          
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="touch-target">
+                <Languages className="h-5 w-5" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {languages.map((lang) => (
+                <DropdownMenuItem
+                  key={lang}
+                  onClick={() => handleLanguageChange(lang)}
+                  className={currentLanguage === lang ? "bg-accent" : ""}
+                >
+                  {lang}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Link to="/auth">
             <Button variant="outline" className="touch-target">
               Sign In

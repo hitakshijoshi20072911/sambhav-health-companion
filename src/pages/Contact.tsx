@@ -43,7 +43,7 @@ const Contact = () => {
         <div className="text-center mb-16 fade-in-up">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have questions about Sambhav? We're here to help. Reach out to our team.
+            Have questions about SAMBHAV? We're here to help. Reach out to our team.
           </p>
         </div>
 

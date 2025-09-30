@@ -40,6 +40,26 @@ const Index = () => {
 
   return (
     <div className="w-full">
+      {/* Intro Video Section */}
+      <section className="relative w-full bg-black">
+        <video 
+          className="w-full h-auto max-h-[70vh] object-cover"
+          autoPlay 
+          muted 
+          loop 
+          playsInline
+        >
+          <source src="/intro-video.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+          <div className="text-center text-white space-y-4 fade-in-up">
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tight">SAMBHAV</h1>
+            <p className="text-xl md:text-2xl">गाँव गाँव तक सेहत</p>
+          </div>
+        </div>
+      </section>
+
       {/* Hero Section */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/10">
         {/* Watermark Logo */}
@@ -50,11 +70,11 @@ const Index = () => {
         <div className="container relative z-10 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-8 fade-in-up">
             <div className="inline-flex items-center justify-center mb-6">
-              <img src={sambhavLogo} alt="Sambhav" className="h-32 w-auto float" />
+              <img src={sambhavLogo} alt="SAMBHAV" className="h-32 w-auto float" />
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-              Sambhav
+              SAMBHAV
             </h1>
             
             <p className="text-2xl md:text-3xl text-primary font-semibold">
@@ -118,11 +138,11 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {roles.map((role, index) => (
               <Link key={index} to={role.link} className="group">
-                <div className="bg-card border-2 hover:border-primary rounded-lg p-6 h-full transition-all duration-300 hover:shadow-medium hover:-translate-y-1">
+                <div className="bg-primary text-white border-2 border-primary hover:border-primary-dark rounded-lg p-6 h-full hover-zoom">
                   <div className="text-5xl mb-4">{role.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">{role.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{role.description}</p>
-                  <div className="mt-4 text-primary text-sm font-medium flex items-center">
+                  <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors">{role.title}</h3>
+                  <p className="text-sm text-white/90 leading-relaxed">{role.description}</p>
+                  <div className="mt-4 text-white text-sm font-medium flex items-center">
                     View Dashboard
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </div>

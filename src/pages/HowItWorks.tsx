@@ -67,7 +67,7 @@ const HowItWorks = () => {
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">How Sambhav Works</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">How SAMBHAV Works</h1>
           <p className="text-xl text-muted-foreground">
             Offline-first architecture with intelligent sync and safety-first design
           </p>
@@ -82,7 +82,7 @@ const HowItWorks = () => {
                   <path d="M8 5v14l11-7z" />
                 </svg>
               </div>
-              <h3 className="text-2xl font-bold">Video: Sambhav in Action</h3>
+              <h3 className="text-2xl font-bold">Video: SAMBHAV in Action</h3>
               <p className="text-muted-foreground">Upload coming soon</p>
               <p className="text-sm text-muted-foreground/70">
                 This section will feature a video walkthrough showing real-world usage

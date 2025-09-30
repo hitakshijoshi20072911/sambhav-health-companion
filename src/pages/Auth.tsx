@@ -65,14 +65,14 @@ const Auth = () => {
       <Card className="w-full max-w-md shadow-strong">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">
-            <img src={sambhavLogo} alt="Sambhav" className="h-16 w-auto" />
+            <img src={sambhavLogo} alt="SAMBHAV" className="h-16 w-auto" />
           </div>
           <CardTitle className="text-2xl">
             {mode === "signup" ? "Create Account" : "Sign In"}
           </CardTitle>
           <CardDescription>
             {mode === "signup"
-              ? "Join Sambhav to access your role-based dashboard"
+              ? "Join SAMBHAV to access your role-based dashboard"
               : "Welcome back! Sign in to continue."}
           </CardDescription>
         </CardHeader>

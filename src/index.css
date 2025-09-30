@@ -134,6 +134,7 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: 'Tinos', 'Times New Roman', serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -217,5 +218,26 @@ All colors MUST be HSL.
 
   .scale-in {
     animation: scale-in 0.4s ease-out;
+  }
+
+  /* Hover zoom with shadow */
+  @keyframes hover-zoom {
+    from {
+      transform: scale(1);
+      box-shadow: 0 4px 16px hsla(177, 100%, 33%, 0.12);
+    }
+    to {
+      transform: scale(1.05);
+      box-shadow: 0 8px 32px hsla(177, 100%, 33%, 0.24);
+    }
+  }
+
+  .hover-zoom {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-zoom:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 32px hsla(177, 100%, 33%, 0.24);
   }
 }

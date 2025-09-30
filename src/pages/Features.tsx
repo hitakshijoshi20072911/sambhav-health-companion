@@ -95,7 +95,7 @@ const Features = () => {
       <div className="container">
         {/* Header */}
         <div className="text-center mb-16 max-w-3xl mx-auto fade-in-up">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">Features Built for the Field</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">SAMBHAV Features Built for the Field</h1>
           <p className="text-xl text-muted-foreground">
             Every feature designed with offline-first, low-literacy, and touch-friendly principles
           </p>
