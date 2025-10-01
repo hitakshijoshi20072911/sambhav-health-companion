@@ -19,7 +19,14 @@ const Header = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const languages = ["English", "Hindi", "Punjabi", "Bengali", "Tamil", "Telugu"];
+  const languages = [
+    { code: "en", label: "English" },
+    { code: "hi", label: "हिंदी" },
+    { code: "pa", label: "ਪੰਜਾਬੀ" },
+    { code: "bn", label: "বাংলা" },
+    { code: "ta", label: "தமிழ்" },
+    { code: "te", label: "తెలుగు" }
+  ];
 
   const navLinks = [
     { path: "/", label: "Home" },
@@ -29,9 +36,10 @@ const Header = () => {
     { path: "/contact", label: "Contact" },
   ];
 
-  const handleLanguageChange = (lang: string) => {
-    setCurrentLanguage(lang);
-    toast.success(`Language changed to ${lang}`);
+  const handleLanguageChange = (lang: { code: string; label: string }) => {
+    setCurrentLanguage(lang.label);
+    document.documentElement.lang = lang.code;
+    toast.success(`Language changed to ${lang.label}`);
   };
 
   const handleVoiceNavigation = () => {
@@ -90,11 +98,11 @@ const Header = () => {
             <DropdownMenuContent align="end">
               {languages.map((lang) => (
                 <DropdownMenuItem
-                  key={lang}
+                  key={lang.code}
                   onClick={() => handleLanguageChange(lang)}
-                  className={currentLanguage === lang ? "bg-accent" : ""}
+                  className={currentLanguage === lang.label ? "bg-accent" : ""}
                 >
-                  {lang}
+                  {lang.label}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>

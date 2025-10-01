@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import ValuePropCard from "@/components/ValuePropCard";
-import { ArrowRight, Shield, Users, Database, Activity } from "lucide-react";
+import { ArrowRight, Shield, Users, Database, Activity, UserRound, Stethoscope, Syringe, Pill, BarChart3 } from "lucide-react";
 import sambhavLogo from "@/assets/sambhav-logo.png";
 
 const Index = () => {
@@ -9,31 +9,31 @@ const Index = () => {
     {
       title: "ASHA Worker",
       description: "Voice-enabled visit tracking, offline-first patient management, and persistent safety button",
-      icon: "👩‍⚕️",
+      icon: UserRound,
       link: "/dashboards#asha",
     },
     {
       title: "ANM",
       description: "Validate field data, manage incidents, monitor vaccinations and ANC schedules",
-      icon: "👨‍⚕️",
+      icon: Stethoscope,
       link: "/dashboards#anm",
     },
     {
       title: "PHC Doctor",
       description: "Patient queue management, teleconsult, referrals, and incident oversight",
-      icon: "🩺",
+      icon: Syringe,
       link: "/dashboards#doctor",
     },
     {
       title: "Pharmacist",
       description: "Inventory tracking, dispensation logs, expiry alerts, and SMS fallback",
-      icon: "💊",
+      icon: Pill,
       link: "/dashboards#pharmacist",
     },
     {
       title: "Supervisor",
       description: "Device health monitoring, incident management, KPI dashboards, and admin controls",
-      icon: "📊",
+      icon: BarChart3,
       link: "/dashboards#supervisor",
     },
   ];
@@ -45,19 +45,13 @@ const Index = () => {
         <video 
           className="w-full h-auto max-h-[70vh] object-cover"
           autoPlay 
-          muted 
           loop 
           playsInline
+          controls
         >
           <source src="/intro-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-          <div className="text-center text-white space-y-4 fade-in-up">
-            <h1 className="text-6xl md:text-8xl font-bold tracking-tight">SAMBHAV</h1>
-            <p className="text-xl md:text-2xl">गाँव गाँव तक सेहत</p>
-          </div>
-        </div>
       </section>
 
       {/* Hero Section */}
@@ -70,7 +64,7 @@ const Index = () => {
         <div className="container relative z-10 py-20">
           <div className="max-w-4xl mx-auto text-center space-y-8 fade-in-up">
             <div className="inline-flex items-center justify-center mb-6">
-              <img src={sambhavLogo} alt="SAMBHAV" className="h-32 w-auto float" />
+              <img src={sambhavLogo} alt="SAMBHAV" className="h-48 md:h-56 w-auto float" />
             </div>
             
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
@@ -136,19 +130,22 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {roles.map((role, index) => (
-              <Link key={index} to={role.link} className="group">
-                <div className="bg-primary text-white border-2 border-primary hover:border-primary-dark rounded-lg p-6 h-full hover-zoom">
-                  <div className="text-5xl mb-4">{role.icon}</div>
-                  <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors">{role.title}</h3>
-                  <p className="text-sm text-white/90 leading-relaxed">{role.description}</p>
-                  <div className="mt-4 text-white text-sm font-medium flex items-center">
-                    View Dashboard
-                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+            {roles.map((role, index) => {
+              const IconComponent = role.icon;
+              return (
+                <Link key={index} to={role.link} className="group">
+                  <div className="bg-primary text-white border-2 border-primary hover:border-primary-dark rounded-lg p-6 h-full hover-zoom">
+                    <IconComponent className="h-12 w-12 mb-4" />
+                    <h3 className="text-xl font-bold mb-3 group-hover:text-white transition-colors">{role.title}</h3>
+                    <p className="text-sm text-white/90 leading-relaxed">{role.description}</p>
+                    <div className="mt-4 text-white text-sm font-medium flex items-center">
+                      View Dashboard
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

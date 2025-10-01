@@ -1,17 +1,73 @@
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import DeviceMockup from "@/components/DeviceMockup";
 import SyncIndicator from "@/components/SyncIndicator";
+import { toast } from "sonner";
 import { 
   Users, Activity, Calendar, Shield, Phone, AlertTriangle, 
   CheckCircle, Clock, MapPin, Camera, Mic, FileText,
-  Pill, Package, TrendingUp, Bell
+  Pill, Package, TrendingUp, Bell, UserRound, Stethoscope, 
+  Syringe, BarChart3, Upload
 } from "lucide-react";
 
 const Dashboards = () => {
+  const [evidenceDialogOpen, setEvidenceDialogOpen] = useState(false);
+  const [evidenceSubmitted, setEvidenceSubmitted] = useState(false);
+  const [evidenceForm, setEvidenceForm] = useState({
+    file: null as File | null,
+    message: "",
+    id: "",
+    phone: "",
+    location: ""
+  });
+
+  const handleEvidenceSubmit = () => {
+    // Simulate evidence submission
+    setEvidenceSubmitted(true);
+    toast.success("Evidence submitted securely and anonymously");
+    
+    setTimeout(() => {
+      setEvidenceDialogOpen(false);
+      setEvidenceSubmitted(false);
+      setEvidenceForm({
+        file: null,
+        message: "",
+        id: "",
+        phone: "",
+        location: ""
+      });
+    }, 3000);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setEvidenceForm({ ...evidenceForm, file: e.target.files[0] });
+    }
+  };
+
+  const detectLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const coords = `${position.coords.latitude.toFixed(6)}, ${position.coords.longitude.toFixed(6)}`;
+          setEvidenceForm({ ...evidenceForm, location: coords });
+          toast.success("Location detected");
+        },
+        () => {
+          toast.error("Unable to detect location");
+        }
+      );
+    }
+  };
+
   return (
     <div className="w-full py-16">
       <div className="container">
@@ -25,23 +81,23 @@ const Dashboards = () => {
 
           <Tabs defaultValue="asha" className="w-full">
             <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6 h-auto">
-              <TabsTrigger value="asha" className="text-sm py-3">
-                <span className="text-2xl mr-2">👩‍⚕️</span> ASHA
+              <TabsTrigger value="asha" className="text-sm py-3 flex items-center gap-2">
+                <UserRound className="h-4 w-4" /> ASHA
               </TabsTrigger>
-              <TabsTrigger value="anm" className="text-sm py-3">
-                <span className="text-2xl mr-2">👨‍⚕️</span> ANM
+              <TabsTrigger value="anm" className="text-sm py-3 flex items-center gap-2">
+                <Stethoscope className="h-4 w-4" /> ANM
               </TabsTrigger>
-              <TabsTrigger value="doctor" className="text-sm py-3">
-                <span className="text-2xl mr-2">🩺</span> Doctor
+              <TabsTrigger value="doctor" className="text-sm py-3 flex items-center gap-2">
+                <Syringe className="h-4 w-4" /> Doctor
               </TabsTrigger>
-              <TabsTrigger value="pharmacist" className="text-sm py-3">
-                <span className="text-2xl mr-2">💊</span> Pharmacist
+              <TabsTrigger value="pharmacist" className="text-sm py-3 flex items-center gap-2">
+                <Pill className="h-4 w-4" /> Pharmacist
               </TabsTrigger>
-              <TabsTrigger value="supervisor" className="text-sm py-3">
-                <span className="text-2xl mr-2">📊</span> Supervisor
+              <TabsTrigger value="supervisor" className="text-sm py-3 flex items-center gap-2">
+                <BarChart3 className="h-4 w-4" /> Supervisor
               </TabsTrigger>
-              <TabsTrigger value="safety" className="text-sm py-3">
-                <span className="text-2xl mr-2">🚨</span> Safety
+              <TabsTrigger value="safety" className="text-sm py-3 flex items-center gap-2">
+                <Shield className="h-4 w-4" /> Safety
               </TabsTrigger>
             </TabsList>
 
@@ -586,10 +642,108 @@ const Dashboards = () => {
                         <MapPin className="mr-2 h-5 w-5" />
                         Share Live Location
                       </Button>
-                      <Button variant="outline" className="w-full hover-zoom" size="lg">
-                        <Camera className="mr-2 h-5 w-5" />
-                        Capture Evidence
-                      </Button>
+                      
+                      <Dialog open={evidenceDialogOpen} onOpenChange={setEvidenceDialogOpen}>
+                        <DialogTrigger asChild>
+                          <Button variant="outline" className="w-full hover-zoom" size="lg">
+                            <Camera className="mr-2 h-5 w-5" />
+                            Capture Evidence
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[500px]">
+                          <DialogHeader>
+                            <DialogTitle>Capture Evidence</DialogTitle>
+                            <DialogDescription>
+                              Submit evidence securely and anonymously. All information is encrypted.
+                            </DialogDescription>
+                          </DialogHeader>
+                          
+                          {!evidenceSubmitted ? (
+                            <div className="space-y-4 py-4">
+                              <div className="space-y-2">
+                                <Label htmlFor="evidence-file">Upload Image</Label>
+                                <Input 
+                                  id="evidence-file" 
+                                  type="file" 
+                                  accept="image/*"
+                                  onChange={handleFileChange}
+                                  className="cursor-pointer"
+                                />
+                              </div>
+                              
+                              <div className="space-y-2">
+                                <Label htmlFor="evidence-message">Message</Label>
+                                <Textarea 
+                                  id="evidence-message"
+                                  placeholder="Describe the situation..."
+                                  value={evidenceForm.message}
+                                  onChange={(e) => setEvidenceForm({ ...evidenceForm, message: e.target.value })}
+                                  rows={3}
+                                />
+                              </div>
+                              
+                              <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-2">
+                                  <Label htmlFor="evidence-id">ID Number</Label>
+                                  <Input 
+                                    id="evidence-id"
+                                    placeholder="Optional"
+                                    value={evidenceForm.id}
+                                    onChange={(e) => setEvidenceForm({ ...evidenceForm, id: e.target.value })}
+                                  />
+                                </div>
+                                
+                                <div className="space-y-2">
+                                  <Label htmlFor="evidence-phone">Phone Number</Label>
+                                  <Input 
+                                    id="evidence-phone"
+                                    placeholder="Optional"
+                                    value={evidenceForm.phone}
+                                    onChange={(e) => setEvidenceForm({ ...evidenceForm, phone: e.target.value })}
+                                  />
+                                </div>
+                              </div>
+                              
+                              <div className="space-y-2">
+                                <Label htmlFor="evidence-location">Location</Label>
+                                <div className="flex gap-2">
+                                  <Input 
+                                    id="evidence-location"
+                                    placeholder="Auto-detected or enter manually"
+                                    value={evidenceForm.location}
+                                    onChange={(e) => setEvidenceForm({ ...evidenceForm, location: e.target.value })}
+                                  />
+                                  <Button type="button" variant="outline" onClick={detectLocation}>
+                                    <MapPin className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="py-8 text-center space-y-4">
+                              <CheckCircle className="h-16 w-16 text-success mx-auto" />
+                              <div className="space-y-2">
+                                <h3 className="text-xl font-bold text-success">You are safe.</h3>
+                                <p className="text-muted-foreground">
+                                  The report has been sent anonymously to authorities.
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                          
+                          {!evidenceSubmitted && (
+                            <DialogFooter>
+                              <Button variant="outline" onClick={() => setEvidenceDialogOpen(false)}>
+                                Cancel
+                              </Button>
+                              <Button onClick={handleEvidenceSubmit} className="bg-safety hover:bg-safety/90">
+                                <Upload className="mr-2 h-4 w-4" />
+                                Submit Evidence
+                              </Button>
+                            </DialogFooter>
+                          )}
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </Card>
 
