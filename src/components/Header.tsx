@@ -10,35 +10,36 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+import { useLanguage } from "@/contexts/LanguageContext";
+import type { Language } from "@/lib/translations";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState("English");
   const [isListening, setIsListening] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const isActive = (path: string) => location.pathname === path;
 
   const languages = [
-    { code: "en", label: "English" },
-    { code: "hi", label: "हिंदी" },
-    { code: "pa", label: "ਪੰਜਾਬੀ" },
-    { code: "bn", label: "বাংলা" },
-    { code: "ta", label: "தமிழ்" },
-    { code: "te", label: "తెలుగు" }
+    { code: "en" as Language, label: "English" },
+    { code: "hi" as Language, label: "हिंदी" },
+    { code: "pa" as Language, label: "ਪੰਜਾਬੀ" },
+    { code: "bn" as Language, label: "বাংলা" },
+    { code: "ta" as Language, label: "தமிழ்" },
+    { code: "te" as Language, label: "తెలుగు" }
   ];
 
   const navLinks = [
-    { path: "/", label: "Home" },
-    { path: "/features", label: "Features" },
-    { path: "/how-it-works", label: "How it Works" },
-    { path: "/dashboards", label: "Role Dashboards" },
-    { path: "/contact", label: "Contact" },
+    { path: "/", label: t("home") },
+    { path: "/features", label: t("features") },
+    { path: "/how-it-works", label: t("howItWorks") },
+    { path: "/dashboards", label: t("roleDashboards") },
+    { path: "/contact", label: t("contact") },
   ];
 
-  const handleLanguageChange = (lang: { code: string; label: string }) => {
-    setCurrentLanguage(lang.label);
-    document.documentElement.lang = lang.code;
+  const handleLanguageChange = (lang: { code: Language; label: string }) => {
+    setLanguage(lang.code);
     toast.success(`Language changed to ${lang.label}`);
   };
 
@@ -100,7 +101,7 @@ const Header = () => {
                 <DropdownMenuItem
                   key={lang.code}
                   onClick={() => handleLanguageChange(lang)}
-                  className={currentLanguage === lang.label ? "bg-accent" : ""}
+                  className={language === lang.code ? "bg-accent" : ""}
                 >
                   {lang.label}
                 </DropdownMenuItem>
@@ -110,12 +111,12 @@ const Header = () => {
 
           <Link to="/auth">
             <Button variant="outline" className="touch-target">
-              Sign In
+              {t("signIn")}
             </Button>
           </Link>
           <Link to="/auth?mode=signup">
             <Button className="touch-target bg-primary hover:bg-primary-dark text-primary-foreground">
-              Get Started
+              {t("getStarted")}
             </Button>
           </Link>
         </div>
